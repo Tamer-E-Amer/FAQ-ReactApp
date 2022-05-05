@@ -1,8 +1,10 @@
 import React from "react";
 // App Components
-import { Navbar, QAForm } from "./components";
+import { Navbar, QAForm,NoQuestions, QuestionsList } from "./components";
 // mui components
 import CssBaseline from "@mui/material/CssBaseline";
+import Container from "@mui/material/Container";
+
 import { ThemeProvider } from "@mui/material/styles";
 // theme
 import theme from "./themes/appTheme";
@@ -13,7 +15,11 @@ const App = () => {
       <ThemeProvider theme={theme}>
 
       <Navbar />
+      <Container>
       <QAForm/>
+      <NoQuestions/>
+      <QuestionsList/>
+      </Container>
       </ThemeProvider>
     </div>
   );

@@ -19,7 +19,7 @@ const Navbar = () => {
         <Container>
           <Toolbar variant="dense">
             <IconButton edge="start" color="inherit" aria-label="menu">
-              <QuizIcon sx={{ fontSize: 40 }} />
+              <QuizIcon sx={{ fontSize: 35 }} />
             </IconButton>
             <Stack
               alignItems="center"

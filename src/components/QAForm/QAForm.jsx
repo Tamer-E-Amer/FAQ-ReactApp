@@ -12,7 +12,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 const QAForm = () => {
   return (
-    <form style={{ width: "550px", height: "auto", margin: "auto" }}>
+    <form style={{ width: "70%", height: "auto", margin: "auto" }}>
       <Stack
         spacing={2}
         alignItems="center"
