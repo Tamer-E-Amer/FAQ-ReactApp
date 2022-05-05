@@ -17,7 +17,7 @@ const App = () => {
       <Navbar />
       <Container>
       <QAForm/>
-      <NoQuestions/>
+      {/* <NoQuestions/> */}
       <QuestionsList/>
       </Container>
       </ThemeProvider>
