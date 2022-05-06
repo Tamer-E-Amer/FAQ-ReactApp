@@ -27,6 +27,9 @@ const QuestionsList = ({
   updateQuestionArray,
   updateQuestionArrayAfterDelete,
 }) => {
+  // get questions from LocalStorage
+  const localStorageQuestions = JSON.parse(localStorage.getItem("questions"));
+
   //  delete all questions
   const dellAllQuestions = () => {
     //dell questions
@@ -58,8 +61,8 @@ const QuestionsList = ({
    * another way to delete one item in the question array by using filter method
    */
   const delItemUsingFilter = (id) => {
-    if (questionsData.length >= 1) {
-      let filteredQuestions = questionsData.filter(
+    if (localStorageQuestions.length >= 1) {
+      let filteredQuestions = localStorageQuestions.filter(
         (item, index) => index !== id
       );
       updateQuestionArrayAfterDelete(filteredQuestions);
@@ -67,8 +70,8 @@ const QuestionsList = ({
   };
   // get the questions list using map method and put it in an accordion
   const questionsList =
-    questionsData.length >= 1 ? (
-      questionsData.map((item, index) => {
+    localStorageQuestions.length >= 1 ? (
+      localStorageQuestions.map((item, index) => {
         return (
           <Accordion key={index}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -119,7 +122,7 @@ const QuestionsList = ({
       {questionsList}
       {/* delete all  */}
       {/* show the button only when the array has items */}
-      {questionsList.length >= 1 && (
+      {localStorageQuestions.length >= 1 && (
         <Button
           variant="contained"
           color="error"

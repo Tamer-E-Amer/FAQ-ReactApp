@@ -14,11 +14,15 @@ const App = () => {
 
   // function to update the state when adding question on the form
   const updateQuestionArray = () => {
+    // add questions to Local storage
+    localStorage.setItem("questions",JSON.stringify([...questionsData]))
+    
     setQuestionsData([...questionsData]);
   };
   // update array after delete
   const updateQuestionArrayAfterDelete = (items) => {
     setQuestionsData(items);
+    localStorage.setItem("questions",JSON.stringify(items))
   };
   return (
     <div>
