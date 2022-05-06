@@ -16,8 +16,16 @@ import Button from "@mui/material/Button";
 
 // mui icons
 import DeleteIcon from "@mui/icons-material/Delete";
+import { questions } from "../../data/questions";
 
-const QuestionsList = ({ questionsData }) => {
+const QuestionsList = ({ questionsData, updateQuestionArray }) => {
+  //  delete all questions
+  const dellAllQuestions = () => {
+    //dell questions
+    questions.splice(0, questions.length);
+    // update the array state
+    updateQuestionArray();
+  };
   // question list
   console.log("questionsData", questionsData);
   const questionsList =
@@ -59,6 +67,7 @@ const QuestionsList = ({ questionsData }) => {
           startIcon={<DeleteIcon />}
           sx={{ textTransform: "none", margin: "1rem 0" }}
           fullWidth
+          onClick={dellAllQuestions}
         >
           Delete All Questions
         </Button>

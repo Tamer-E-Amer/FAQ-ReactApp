@@ -23,15 +23,7 @@ const App = () => {
         <Navbar />
         <Container>
           <QAForm updateQuestionArray ={updateQuestionArray}/>
-          {/* {
-            // when there are no questions shwo the iformationbox else show the questions list
-            questionsData.length > 1 ? (
-              <QuestionsList questionsData={questionsData} />
-            ) : (
-              <NoQuestions />
-            )
-          } */}
-          <QuestionsList questionsData={questionsData} />
+          <QuestionsList questionsData={questionsData} updateQuestionArray ={updateQuestionArray} />
         </Container>
       </ThemeProvider>
     </div>
