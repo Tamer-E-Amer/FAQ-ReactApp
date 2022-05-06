@@ -9,12 +9,9 @@ import Button from "@mui/material/Button";
 
 // icons
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-// questions array
-import { questions } from "../../data/questions";
-const QAForm = ({ updateQuestionArray }) => {
+const QAForm = ({ updateQuestionArray, questionsData }) => {
   // state form the form data
   const [formData, setFormData] = React.useState({
-    id: Math.random(),
     question: "",
     answer: "",
   });
@@ -36,7 +33,7 @@ const QAForm = ({ updateQuestionArray }) => {
   };
 
   const addQuestion = () => {
-    questions.push(formData);
+    questionsData.push(formData);
     // make form empty after submition
     setFormData({
       question: "",

@@ -13,17 +13,30 @@ const App = () => {
   const [questionsData, setQuestionsData] = React.useState(questions);
 
   // function to update the state when adding question on the form
-  const updateQuestionArray =()=>{
-    setQuestionsData([...questions])
-  }
+  const updateQuestionArray = () => {
+    setQuestionsData([...questionsData]);
+  };
+  // update array after delete
+  const updateQuestionArrayAfterDelete = (items) => {
+    setQuestionsData(items);
+  };
   return (
     <div>
       <CssBaseline />
       <ThemeProvider theme={theme}>
         <Navbar />
         <Container>
-          <QAForm updateQuestionArray ={updateQuestionArray}/>
-          <QuestionsList questionsData={questionsData} updateQuestionArray ={updateQuestionArray} />
+          {/* form to input question */}
+          <QAForm
+            updateQuestionArray={updateQuestionArray}
+            questionsData={questionsData}
+          />
+          {/* list ofquestions and their answers in an accordion */}
+          <QuestionsList
+            questionsData={questionsData}
+            updateQuestionArray={updateQuestionArray}
+            updateQuestionArrayAfterDelete={updateQuestionArrayAfterDelete}
+          />
         </Container>
       </ThemeProvider>
     </div>
