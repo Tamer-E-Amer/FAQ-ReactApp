@@ -20,7 +20,7 @@ const NoQuestions = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          width: "70%",
+          width: "100%",
           height: 100,
           color: "red",
           backgroundColor: "#E1DCDC",

@@ -3,6 +3,8 @@
  */
 
 import React from "react";
+// components
+import { NoQuestions } from "../../components";
 // mui components
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -15,43 +17,52 @@ import Button from "@mui/material/Button";
 // mui icons
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const QuestionsList = () => {
+const QuestionsList = ({ questionsData }) => {
+  // question list
+  console.log("questionsData", questionsData);
+  const questionsList =
+    questionsData.length >= 1 ? (
+      questionsData.map((item, index) => {
+        return (
+          <Accordion key={index}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography>{item.question}</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>{item.answer}</Typography>
+            </AccordionDetails>
+          </Accordion>
+        );
+      })
+    ) : (
+      <NoQuestions />
+    );
+
   return (
     <Box
       sx={{
         flexGrow: 1,
         width: "70%",
         height: "auto",
-        margin: "1rem auto",
+        margin: " auto",
       }}
     >
       {/* accordion : list of questions */}
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography>What is React?</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
+      {questionsList}
       {/* delete all  */}
-      <Button
-        variant="contained"
-        color="error"
-        size="large"
-        startIcon={<DeleteIcon />}
-        sx={{ textTransform: "none", margin: "1rem 0" }}
-        fullWidth
-      >
-        Delete All Questions
-      </Button>
+      {/* show the button only when the array has items */}
+      {questionsList.length >= 1 && (
+        <Button
+          variant="contained"
+          color="error"
+          size="large"
+          startIcon={<DeleteIcon />}
+          sx={{ textTransform: "none", margin: "1rem 0" }}
+          fullWidth
+        >
+          Delete All Questions
+        </Button>
+      )}
     </Box>
   );
 };

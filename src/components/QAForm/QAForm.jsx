@@ -9,10 +9,47 @@ import Button from "@mui/material/Button";
 
 // icons
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+// questions array
+import { questions } from "../../data/questions";
+const QAForm = ({ updateQuestionArray }) => {
+  // state form the form data
+  const [formData, setFormData] = React.useState({
+    id: Math.random(),
+    question: "",
+    answer: "",
+  });
 
-const QAForm = () => {
+  // change handler form form inputes
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
+
+  // submit form function
+  const submitQuestion = (e) => {
+    e.preventDefault();
+  };
+
+  const addQuestion = () => {
+    questions.push(formData);
+    // make form empty after submition
+    setFormData({
+      question: "",
+      answer: "",
+    });
+    updateQuestionArray();
+  };
+
   return (
-    <form style={{ width: "70%", height: "auto", margin: "auto" }}>
+    <form
+      style={{ width: "70%", height: "auto", margin: "auto" }}
+      onSubmit={submitQuestion}
+    >
       <Stack
         spacing={2}
         alignItems="center"
@@ -26,6 +63,9 @@ const QAForm = () => {
           label="Question"
           color="secondary"
           fullWidth
+          name="question"
+          value={formData.question}
+          onChange={onChangeHandler}
         />
         {/* answer */}
         <TextField
@@ -35,6 +75,9 @@ const QAForm = () => {
           fullWidth
           multiline
           rows={4}
+          name="answer"
+          value={formData.answer}
+          onChange={onChangeHandler}
         />
         {/* submit Button */}
         <Button
@@ -44,6 +87,8 @@ const QAForm = () => {
           startIcon={<AddCircleOutlineIcon />}
           sx={{ textTransform: "none" }}
           fullWidth
+          type="submit"
+          onClick={addQuestion}
         >
           Add question
         </Button>
