@@ -19,21 +19,26 @@ import IconButton from "@mui/material/IconButton";
 // mui icons
 import DeleteIcon from "@mui/icons-material/Delete";
 import BackspaceIcon from "@mui/icons-material/Backspace";
-// question array
-import { questions } from "../../data/questions";
+// noti snackbar
+import { useSnackbar } from "notistack";
 
 const QuestionsList = ({
   questionsData,
   updateQuestionArray,
   updateQuestionArrayAfterDelete,
 }) => {
+  // using snack bar for message confirmation
+  const { enqueueSnackbar } = useSnackbar();
+
   // get questions from LocalStorage
   const localStorageQuestions = JSON.parse(localStorage.getItem("questions"));
 
   //  delete all questions
   const dellAllQuestions = () => {
+    const variant = "success";
     //dell questions
     questionsData.splice(0, questionsData.length);
+    enqueueSnackbar("All questions has been deleted", { variant });
     // update the array state
     updateQuestionArray();
   };
@@ -61,10 +66,12 @@ const QuestionsList = ({
    * another way to delete one item in the question array by using filter method
    */
   const delItemUsingFilter = (id) => {
+    const variant = "success";
     if (localStorageQuestions.length >= 1) {
       let filteredQuestions = localStorageQuestions.filter(
         (item, index) => index !== id
       );
+      enqueueSnackbar("This question has been deleted", { variant });
       updateQuestionArrayAfterDelete(filteredQuestions);
     }
   };

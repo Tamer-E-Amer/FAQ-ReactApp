@@ -4,7 +4,6 @@ import { Navbar, QAForm, NoQuestions, QuestionsList } from "./components";
 // mui components
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
-
 import { ThemeProvider } from "@mui/material/styles";
 // theme
 import theme from "./themes/appTheme";

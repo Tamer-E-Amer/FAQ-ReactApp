@@ -9,15 +9,25 @@ import Button from "@mui/material/Button";
 
 // icons
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+// noti snackbar
+import { useSnackbar } from "notistack";
+//////////////////////////////////////////////////////////////////////////////////////
 const QAForm = ({ updateQuestionArray, questionsData }) => {
-  // state form the form data
+  // using snack bar for message confirmation
+  const { enqueueSnackbar } = useSnackbar();
+  // form data state
   const [formData, setFormData] = React.useState({
     question: "",
     answer: "",
   });
+  // state for error handling
+  const [errorMsgs, setErrorMsg] = React.useState({});
+  // state for submitting
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   // change handler form form inputes
   const onChangeHandler = (e) => {
+    e.persist();
     const { name, value } = e.target;
     setFormData((prev) => {
       return {
@@ -29,10 +39,37 @@ const QAForm = ({ updateQuestionArray, questionsData }) => {
 
   // submit form function
   const submitQuestion = (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
+    // validate formData
+    setErrorMsg(validate(formData));
+    // change submitting state
+    setIsSubmitting(true);
   };
 
-  const addQuestion = () => {
+  React.useEffect(() => {
+    if (isSubmitting && Object.keys(errorMsgs).length === 0 && isSubmitting) {
+      addQuestion("success");
+    }
+  }, [errorMsgs]);
+
+  /**
+   * @description this function is used to validate the form inputs
+   * @param {object} : form data state object
+   */
+  const validate = (values) => {
+    const errors = {};
+    // test quesion is empty
+    if (values.question == "") {
+      errors.questionMsg = "Question is required";
+    }
+    // test answer is empty
+    if (!values.answer) {
+      errors.answerMsg = "Answer is required";
+    }
+    return errors;
+  };
+
+  const addQuestion = (variant) => {
     questionsData.push(formData);
     // make form empty after submition
     setFormData({
@@ -40,12 +77,14 @@ const QAForm = ({ updateQuestionArray, questionsData }) => {
       answer: "",
     });
     updateQuestionArray();
+    enqueueSnackbar("This is a success message!", { variant });
   };
 
   return (
     <form
       style={{ width: "70%", height: "auto", margin: "auto" }}
       onSubmit={submitQuestion}
+      noValidate
     >
       <Stack
         spacing={2}
@@ -63,6 +102,10 @@ const QAForm = ({ updateQuestionArray, questionsData }) => {
           name="question"
           value={formData.question}
           onChange={onChangeHandler}
+          // validation
+          required
+          error={!!errorMsgs.questionMsg}
+          helperText={errorMsgs.questionMsg}
         />
         {/* answer */}
         <TextField
@@ -75,6 +118,10 @@ const QAForm = ({ updateQuestionArray, questionsData }) => {
           name="answer"
           value={formData.answer}
           onChange={onChangeHandler}
+          // validation
+          required
+          error={!!errorMsgs.answerMsg}
+          helperText={errorMsgs.answerMsg}
         />
         {/* submit Button */}
         <Button
@@ -85,7 +132,7 @@ const QAForm = ({ updateQuestionArray, questionsData }) => {
           sx={{ textTransform: "none" }}
           fullWidth
           type="submit"
-          onClick={addQuestion}
+          // onClick={submitQuestion}
         >
           Add question
         </Button>
